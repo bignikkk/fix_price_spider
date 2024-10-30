@@ -1,6 +1,6 @@
 ### FIX_SPIDER
 
-FIX_SPIDER - парсер, созданный с использование Scrapy, для магазина FixPrice.
+FIX_SPIDER - парсер, созданный с использованием Scrapy, для магазина FixPrice.
 
 
 ### Автор:
