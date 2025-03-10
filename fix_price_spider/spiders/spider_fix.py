@@ -20,17 +20,12 @@ class FixpriceSpider(scrapy.Spider):
         """Извлечение ссылок на продукты и переход на страницы товаров."""
         product_links = response.css('a.title::attr(href)').getall()
         for link in product_links:
-            full_link = response.urljoin(link)
-            yield response.follow(full_link, callback=self.parse_product)
+            yield response.follow(link, callback=self.parse_product)
 
-        next_page = response.css('a.pagination-next::attr(href)').get()
-        if next_page:
-            yield response.follow(next_page, callback=self.parse)
-        else:
-            pagination_links = response.css(
-                'div.pagination a.number::attr(href)').getall()
-            for page_link in pagination_links:
-                yield response.follow(page_link, callback=self.parse)
+        pagination_links = response.css(
+            'div.pagination a.number::attr(href)').getall()
+        for page_link in pagination_links:
+            yield response.follow(page_link, callback=self.parse)
 
     def parse_product(self, response):
         """Парсинг данных продукта и формирование словаря item_data."""
